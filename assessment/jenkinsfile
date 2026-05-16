@@ -17,9 +17,9 @@ pipeline {
             steps {
                 sh """
                 docker rm -f test-app || true
-                docker run -d --name test-app -p 3000:3000 ${IMAGE_NAME}:${IMAGE_TAG}
+                docker run -d --name test-app ${IMAGE_NAME}:${IMAGE_TAG}
                 sleep 15
-                curl -f http://localhost:3000/health
+                docker exec test-app wget -qO- http://127.0.0.1:3000/health
                 docker rm -f test-app
                 """
             }
