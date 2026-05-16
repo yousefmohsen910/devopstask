@@ -18,7 +18,7 @@ pipeline {
                 sh """
                 docker rm -f test-app || true
                 docker run -d --name test-app -p 3000:3000 ${IMAGE_NAME}:${IMAGE_TAG}
-                sleep 5
+                sleep 15
                 curl -f http://localhost:3000/health
                 docker rm -f test-app
                 """
