@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-assessment-app
+  namespace: devops-assessment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devops-assessment-app
+  template:
+    metadata:
+      labels:
+        app: devops-assessment-app
+    spec:
+      containers:
+        - name: app
+          image: localhost:8082/devops-assessment-app:latest
+          ports:
+            - containerPort: 3000
