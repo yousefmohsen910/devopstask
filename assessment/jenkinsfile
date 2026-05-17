@@ -25,6 +25,14 @@ pipeline {
             }
         }
 
+        stage("Login To Nexus") {
+            steps {
+                withCredentials([usernamePassword(credentialsId: '3f1e9b31-fbf3-4c65-bea5-b49b011ad577', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
+                    sh "echo $NEXUS_PASS | docker login localhost:8082 -u $NEXUS_USER --password-stdin"
+                }
+            }
+        }
+
         stage("Push Image To Nexus") {
             steps {
                 sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
